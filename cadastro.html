@@ -1,36 +1,36 @@
-<?php
-    if(isset($_POST['submit'])){
-        $to = "lcustodio.iprj@gmail.com"; // this is your Email address
-        $from = $_POST['email']; // this is the sender's Email address
-        $first_name = $_POST['first_name'];
-        $last_name = $_POST['last_name'];
-        $subject = "Form submission";
-        $subject2 = "Copy of your form submission";
-        $message = $first_name . " " . $last_name . " wrote the following:" . "\n\n" . $_POST['message'];
-        $message2 = "Here is a copy of your message " . $first_name . "\n\n" . $_POST['message'];
-        
-        $headers = "From:" . $from;
-        $headers2 = "From:" . $to;
-        mail($to,$subject,$message,$headers);
-        mail($from,$subject2,$message2,$headers2); // sends a copy of the message to the sender
-        echo "Mail Sent. Thank you " . $first_name . ", we will contact you shortly.";
-        // You can also use header('Location: thank_you.php'); to redirect to another page.
-    }
-?>
-
-<!DOCTYPE html>
-<head>
-    <title>Form submission</title>
-</head>
+<html>
+    <head>
+        $('form#contact_form').validate({
+  messages: { },
+  submitHandler: function(form) {
+    $.ajax({
+      url: "//formspree.io/hello@reecreate.com",
+      method: "POST",
+      data: $(form).serialize(),
+      dataType: "json",
+      success: function(data) {
+          $("form#contact_form :input").prop("disabled", true);
+          $('#thanks').show();
+      }
+    });
+    return false;
+  }
+});
+        </head>
 <body>
-    
-    <form action="" method="post">
-        First Name: <input type="text" name="first_name"><br>
-        Last Name: <input type="text" name="last_name"><br>
-        Email: <input type="text" name="email"><br>
-        Message:<br><textarea rows="5" name="message" cols="30"></textarea><br>
-        <input type="submit" name="submit" value="Submit">
-    </form>
-    
-</body>
-</html>
+<form id='contact_form' method='POST'>
+  <div class='large-12 columns'>
+    <p id='thanks' style='display: none;'>
+      Thanks for contacting us, we'll be in touch soon!
+    </p>
+  </div>
+  <div class='medium-12 columns'>
+    <input class='required' name='name' placeholder='NAME' type='text'>
+    <input class='required email' name='email' placeholder='EMAIL' type='text'>
+    <input class='required' name='subject' placeholder='SUBJECT' type='text'>
+    <textarea class='required' name='message' placeholder='MESSAGE'></textarea>
+    <input class='button white' type='submit'>
+  </div>
+</form>
+        </body>
+    </html>
