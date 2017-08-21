@@ -30,6 +30,9 @@ input, textarea {
   font: 1em sans-serif;
 
   /* To give the same size to all text field */
+  
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
  
 
   
@@ -77,7 +80,10 @@ button {
 <!-- Learn about this code on MDN: https://developer.mozilla.org/pt-BR/docs/Web/Guide/HTML/Forms/Meu_primeiro_formulario_HTML -->
 
 <form action="/cadastro" method="post">
-  <div>
+  <input type="hidden" name="recipient" value="lcustodio.iprj@gmail.com"> <!-- Pode ser qualquer endereço de email -->
+	<input type="hidden" name="redirect" value="http://http://liscustodio.github.io/"> <!-- Após o envio, o usuário será redirecionado para a página configurada-->
+  
+  <div>
     <label for="name"><b>Nome:</b></label>
     <input type="text" id="name" name="user_name">
   </div>
